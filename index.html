@@ -25,11 +25,11 @@
         <div class="jobcontainer">
         <div class="programming">
             <h1 class="title">Programming</h1>
-            <p style="margin-left: 0.3em; margin-top: 0em;">C#, Python, HTML, <br> CSS, SCSS, JS, Java,<br> XML, GO, Batch <br> These are the languages <br> that I program in</p>
+            <p class="jobtext" style="margin-left: 0.3em; margin-top: 0em;">C#, Python, HTML, <br> CSS, SCSS, JS, Java,<br> XML, GO, Batch <br> These are the languages <br> that I program in</p>
         </div>
         <div class="myjob">
             <h1 class="title">My Job</h1>
-        <p style="margin-left: 0.3em; margin-top: 0em;">I am a software engineer <br> I usually make websites <br> and aplications for <br> Windows and Android</p>
+        <p class="jobtext" style="margin-left: 0.3em; margin-top: 0em;">I am a software engineer <br> I usually make websites <br> and aplications for <br> Windows and Android</p>
     </div>
 </div>
 </div>
@@ -343,6 +343,28 @@
             display: grid;
             place-items: center;
             grid-template-columns: 1fr;
+        }
+        @media screen and (min-width: 1600px) {
+            .welcometext {
+                font-size: 12em;
+            }
+
+            .jobcontainer {
+                margin-left: 5em;
+            }
+
+            .title {
+                font-size: 2.5em;
+            }
+
+            .jobtext {
+                font-size: 1.5em;
+            }
+
+            .myjob {
+                margin-left: 25em;
+                margin-top: -16.75em;
+            }
         }
     </style>
     <script>document.getElementById("currentyear").innerHTML = new Date().getFullYear();</script>
