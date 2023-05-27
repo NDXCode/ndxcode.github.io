@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/fastboot.min.mjs" type="module"></script>
+    <title>NFRP</title>
+</head>
+
+<body>
+    <a id="unlock-bootloader-button">Unlock Bootloader</a>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #3A1C71;
+            background: -webkit-linear-gradient(135deg, #FFAF7B, #D76D77, #3A1C71);
+            background: linear-gradient(135deg, #FFAF7B, #D76D77, #3A1C71);
+            background-repeat: no-repeat;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            height: 100dvh;
+            font-family: 'Nunito Sans', sans-serif;
+        }
+
+        a {
+            display: grid;
+            text-decoration: underline;
+            cursor: pointer;
+            place-items: center;
+            font-size: 2em;
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 32px;
+            backdrop-filter: blur(20px);
+            width: 70%;
+        }
+
+        @media only screen and (max-width: 650px) {
+            a {
+                font-size: 1.3em;
+            }
+        }
+
+        @media only screen and (max-width: 490px) {
+            a {
+                font-size: 1em;
+            }
+        }
+
+        @media only screen and (max-width: 430px) {
+            body {
+                padding: 3em;
+            }
+
+            a {
+                padding: 20px;
+                font-size: .8em;
+            }
+        }
+    </style>
+
+    <script type="module">
+        import { FastbootDevice } from '/fastboot.min.mjs';
+
+        const device = new FastbootDevice();
+
+        async function main() {
+            try {
+                await device.connect();
+                const product = await device.getVariable('product');
+                console.log(`Connected to ${product}`);
+                const unlocked = await device.getVariable('unlocked');
+                if (unlocked === 'yes') {
+                    alert('Bootloader is already unlocked.');
+                    return;
+                }
+                await device.runCommand('flashing unlock');
+                alert('Bootloader unlocked.');
+            } catch (e) {
+                console.error(e);
+            } finally {
+                await device.disconnect();
+            }
+        }
+
+        document.getElementById("unlock-bootloader-button").addEventListener("click", function () {
+            main();
+        })
+
+        window.addEventListener('beforeunload', (event) => {
+            // Cancel the event
+            event.preventDefault();
+            // Chrome requires returnValue to be set
+            event.returnValue = '';
+            // Display a confirmation dialog
+            const message = 'You have unsaved changes. Are you sure you want to leave?';
+            event.returnValue = message;
+            return message;
+        });
+
+
+
+    </script>
+</body>
+
+</html>
