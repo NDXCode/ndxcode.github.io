@@ -202,6 +202,7 @@
         .gitbtn {
             background: #4444FF;
             color: white;
+            transform: skew(-21deg);
             transition: .5s ease;
         }
 
@@ -209,15 +210,13 @@
             border: #4444FF 2px solid;
             color: #4444FF;
             background: transparent;
-            transition: .5s ease;
+            transition: .5s linear;
         }
 
-        .gitbtn:hover a {
-            color: #4444FF;
-            transition: .5s ease;
-        }
 
         a {
+            display: inline-block;
+            transform: skew(21deg);
             color: white;
             transition: .5s ease;
             text-align: center;
