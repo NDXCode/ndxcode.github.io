@@ -1,1 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFRP</title>
+    <script src="https://cdn.jsdelivr.net/gh/webadb/webadb.js@master/webadb.js"></script>
+</head>
+
+<body>
+    <button id="connectToPhone">Connect</button>
+    <div class="controls">
+        <button id="powerOff">Power Off</button>
+        <button id="volumeUp">Volume Up</button>
+        <button id="volumeDown">Volume Down</button>
+        <button id="homeButton">Home</button>
+        <button id="unLockButton">Un/Lock</button>
+        <button id="backButton">Back</button>
+        <button id="screenshotButton">Screenshot</button>
+        <button id="appSwitcherButton">App Switcher</button>
+        <button id="dataToggleButton">+Data toggle</button>
+        <!--<button id="rootButton">Root Device</button>-->
+    </div>
+    <center class="about">
+    <div>
+        <p>Made by <a href="https://ndxcode.github.io/">NDXCode</a></p>
+        <p>Want more awesome features? <br> Download <a href="https://eclipseflashtool.web.app/">Eclipse Flash Tool</a></p>
+    </div>
+    </center>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #2D2D2D;
+            
+        }
+
+        p {
+            color: #BBBBBB;
+        }
+
+        a {
+            color: #666666;
+        }
+
+        .about {
+            position: absolute;
+            bottom: 0;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 100px 100px 100px;
+            margin-top: 50px;
+        }
+
+        button {
+            width: 100px;
+            background-color: #393939;
+            height: 30px;
+            color: #BBBBBB;
+            border: none;
+            padding: 6px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #4A4A4A;
+        }
+
+        button:active {
+            background-color: #323232;
+        }
+    </style>
+    <script type="module">
+        let adb;
+
+        async function init() {
+            while(true) {
+                try {
+                    let webusb = await Adb.open("WebUSB");
+                    adb = await webusb.connectAdb("host::");
+                    break;
+                } catch (error) {
+                    if (error.message.includes("host::")) {
+                        alert("Failed to connect for the first time!\nPress OK to try again")
+                        console.log(`Retrying...`);
+                        continue;
+                    } 
+                    else {
+                        throw error;
+                    }
+                }
+            }
+        }
+
+        async function powerOff() {
+            let shell = await adb.shell("reboot -p");
+        }
+
+        async function volumeUp() {
+            let shell = await adb.shell("input keyevent KEYCODE_VOLUME_UP");
+        }
+
+        async function volumeDown() {
+            let shell = await adb.shell("input keyevent KEYCODE_VOLUME_DOWN");
+        }
+
+        async function screenshotButton() {
+            let shell = await adb.shell("screencap -p /sdcard/screenshot.png");
+        }
+
+        async function unLockButton() {
+            let shell = await adb.shell("input keyevent 26");
+        }
+
+        async function backButton() {
+            let shell = await adb.shell("input keyevent 4");
+        }
+
+        async function homeButton() {
+            let shell = await adb.shell("input keyevent 3");
+        }
+
+        async function appSwitcherButton() {
+            let shell = await adb.shell("input keyevent 187");
+        }
+
+        async function dataToggleButton() {
+            let shell = await adb.shell("settings get secure sysui_qs_tiles");
+        }
+
+        async function rootButton() {
+            try {
+                alert("ATTENTION! \nIn order to root your device you need to have your Bootloader UNLOCKED and you also need to have TWRP installed");
+                let shell = await adb.shell("reboot recovery");
+                console.log(await shell.receive());
+                alert("In TWRP select 'Advanced' --> 'ADB sideload' and slide the slider \n Click OK when done");
+                let shell_2 = await adb.shell("sideload Magisk.zip");
+                console.log(await shell_2.receive());
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        let cnt_btn = document.getElementById("connectToPhone");
+        cnt_btn.addEventListener('click', function () {
+            init().catch(console.error);
+        });
+
+        let pwo_btn = document.getElementById("powerOff");
+        pwo_btn.addEventListener('click', function () {
+            powerOff().catch(console.error);
+        });
+
+        let vup_btn = document.getElementById("volumeUp");
+        vup_btn.addEventListener('click', function () {
+            volumeUp().catch(console.error);
+        });
+
+        let vdn_btn = document.getElementById("volumeDown");
+        vdn_btn.addEventListener('click', function () {
+            volumeDown().catch(console.error);
+        });
+
+        let hmb_btn = document.getElementById("homeButton");
+        hmb_btn.addEventListener('click', function () {
+            homeButton().catch(console.error);
+        });
+
+        let ulb_btn = document.getElementById("unLockButton");
+        ulb_btn.addEventListener('click', function () {
+            unLockButton().catch(console.error);
+        });
+
+        let bcb_btn = document.getElementById("backButton");
+        bcb_btn.addEventListener('click', function () {
+            backButton().catch(console.error);
+        });
+
+        let scr_btn = document.getElementById("screenshotButton");
+        scr_btn.addEventListener('click', function () {
+            screenshotButton().catch(console.error);
+        });
+
+        let asb_btn = document.getElementById("appSwitcherButton");
+        asb_btn.addEventListener('click', function () {
+            appSwitcherButton().catch(console.error);
+        });
+
+        let dtb_btn = document.getElementById("dataToggleButton");
+        dtb_btn.addEventListener('click', function () {
+            dataToggleButton().catch(console.error);
+        });
+
+        //let rot_btn = document.getElementById("rootButton");
+        //rot_btn.addEventListener('click', function () {
+        //    rootButton().catch(console.error);
+        //});
+    </script>
+</body>
+
+</html>
