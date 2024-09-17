@@ -1,0 +1,61 @@
+{
+    "name": "iBypassIos Repo",
+    "subtitle": "Made by NDXCode",
+    "description": "Everything to bypass / jailbreak legacy and non legacy iOS devices",
+    "iconURL": "https://avatars.githubusercontent.com/u/109105339?v=4",
+    "headerURL": "https://avatars.githubusercontent.com/u/109105339?v=4",
+    "website": "https://ndxcode.github.io/",
+    "tintColor": "#00ccff",
+    "featuredApps": [
+        "supplies.wall.phoenix"
+    ],
+    "apps": [
+        {
+            "name": "Phoenix",
+            "bundleIdentifier": "supplies.wall.phoenix",
+            "developerName": "Idk prolly Phoenix",
+            "subtitle": "Jailbreak like 9.3.5 or sum",
+            "localizedDescription": "Jelberk ur device. NOW!",
+            "iconURL": "https://phoenixpwn.com/phoenix.png",
+            "tintColor": "#CC0000",
+            "screenshots": [
+                "https://phoenixpwn.com/phoenix.png",
+                "https://phoenixpwn.com/phoenix.png",
+                {
+                    "imageURL": "https://phoenixpwn.com/phoenix.png",
+                    "width": 2556,
+                    "height": 1179
+                }
+            ],
+            "versions": [
+                {
+                    "version": "6.0",
+                    "date": "2024-09-17T07:00:00-08:00",
+                    "size": 23368425,
+                    "downloadURL": "https://phonecollection.hu/Phoenix6.ipa",
+                    "localizedDescription": "Mirror of Phoenix"
+                }
+            ],
+            "appPermissions": {
+                "entitlements": [
+                    
+                ],
+                "privacy": {
+                    
+                }
+            }
+        }
+    ],
+    "news": [
+        {
+            "title": "IDK what to put here",
+            "identifier": "new_feature",
+            "caption": "I just uploaded Phoenix",
+            "date": "2024-09-17",
+            "tintColor": "#00ccff",
+            "imageURL": "https://phoenixpwn.com/phoenix.png",
+            "notify": true,
+            "url": "https://ndxcode.github.io"
+        }
+    ]
+}
